@@ -1,4 +1,4 @@
-# Ruby::Pinecone
+# Ruby Pinecone
 
 Ruby library to make interacting with the Pinecone Vector Database API easier
 
