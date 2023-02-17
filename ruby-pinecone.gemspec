@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "lib/ruby/pinecone/version"
+require_relative "lib/pinecone/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "ruby-pinecone"
-  spec.version       = Ruby::Pinecone::VERSION
+  spec.version       = Pinecone::VERSION
   spec.authors       = ["Matthew Hirst"]
   spec.email         = ["hirst.mat@gmail.com"]
 
