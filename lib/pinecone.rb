@@ -1,6 +1,7 @@
 require "httparty"
 
 require_relative "pinecone/client"
+require_relative "pinecone/index"
 require_relative "pinecone/vectors"
 require_relative "pinecone/version"
 
@@ -9,7 +10,7 @@ module Pinecone
   class ConfigurationError < Error; end
 
   class Configuration
-    attr_writer :api_key, :base_uri
+    attr_writer :api_key, :environment
 
     def initialize
       @api_key = nil
@@ -23,10 +24,10 @@ module Pinecone
       raise ConfigurationError, error_text
     end
 
-    def base_uri
-      return @base_uri if @base_uri
+    def environment
+      return @environment if @environment
 
-      error_text = "Pinecone Base URI missing! See https://github.com/hornet-network/ruby-pinecone#usage"
+      error_text = "Pinecone environment missing! See https://github.com/hornet-network/ruby-pinecone#usage"
       raise ConfigurationError, error_text
     end
   end

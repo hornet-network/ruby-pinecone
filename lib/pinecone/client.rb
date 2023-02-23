@@ -1,65 +1,63 @@
 module Pinecone
   class Client
-    def initialize(configuration = {})
-      configuration.each do |k, v|
-        Pinecone.configuration.send("#{k}=", v)
-      end
-    end
-
-    # # POST Query
-    # # Provide a vector and retrieve the top-k most similar vectors for each query
-    # https://docs.pinecone.io/docs/query-data#sending-a-query
-    def query(vector, options: {})
-      defaults = {
-        "includeValues": false,
-        "includeMetadata": true,
-        "topK": 5,
-        "vector": vector
-      }
-      body = defaults.merge(options)
-      Pinecone::Client.json_post(path: '/query', parameters: body)
+    def initialize(api_key: nil, environment: nil)
+      Pinecone.configuration.api_key = api_key if api_key
+      Pinecone.configuration.environment = environment if environment
     end
 
     # # Vectors API
     #
-    def vectors
-      @vectors ||= Pinecone::Vectors.new
+    def indexes
+      Pinecone::Index
     end
 
     # # HTTP Helpers
     #
-    def self.get(path:)
+    def self.get(path:, prefix: '')
       HTTParty.get(
-        uri(path: path),
+        uri(path: path, prefix: prefix),
         headers: headers
       )
     end
 
-    def self.json_post(path:, parameters:)
+    def self.json_post(path:, prefix: '', parameters:)
       HTTParty.post(
-        uri(path: path),
+        uri(path: path, prefix: prefix),
         headers: headers,
         body: parameters&.to_json
       )
     end
 
-    def self.multipart_post(path:, parameters: nil)
+    def self.json_patch(path:, prefix: '', parameters:)
+      HTTParty.patch(
+        uri(path: path, prefix: prefix),
+        headers: headers,
+        body: parameters&.to_json
+      )
+    end
+
+    def self.multipart_post(path:, prefix: '', parameters: nil)
       HTTParty.post(
-        uri(path: path),
+        uri(path: path, prefix: prefix),
         headers: headers.merge({ "Content-Type" => "multipart/form-data" }),
         body: parameters
       )
     end
 
-    def self.delete(path:)
+    def self.delete(path:, prefix: '')
       HTTParty.delete(
-        uri(path: path),
+        uri(path: path, prefix: prefix),
         headers: headers
       )
     end
 
-    private_class_method def self.uri(path:)
-      Pinecone.configuration.base_uri + path
+    def self.project_name
+      @project_name ||= Pinecone::Client.get(prefix: 'controller', path: '/actions/whoami')['project_name']
+    end
+
+    private_class_method def self.uri(path:, prefix: '')
+      base = [prefix, Pinecone.configuration.environment].compact.join('.')
+      "https://#{base}.pinecone.io" + path
     end
 
     private_class_method def self.headers

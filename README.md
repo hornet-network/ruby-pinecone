@@ -45,6 +45,50 @@ Then you can create a client like this:
 client = Pinecone::Client.new
 ```
 
+### Indexes
+
+#### View Indexes
+```ruby
+client = Pinecone::Client.new
+
+# Load all indexes
+indexes = client.indexes.list
+
+# Load specific index
+index = client.indexes['my-index']
+
+index.describe
+# => {"database"=>{"name"=>"my-index", "metric"=>"cosine"...}}
+
+index.describe_index_stats
+#=> {"namespaces"=>{}, "dimension"=>1536, "indexFullness"=>0, "totalVectorCount"=>0}
+```
+
+#### Manage Vectors
+
+##### Upsert
+```ruby
+client = Pinecone::Client.new
+index = client.indexes['my-index']
+
+body = {
+  vectors: [
+    {
+      id: 'id-1',
+      values: [0.1, 0.1, 0.1, 0.1, 0.1],
+      metadata: {genre: 'comedy', year: 2020}
+    },
+    {
+      id: 'id-2',
+      values: [0.2, 0.2, 0.2, 0.2, 0.2],
+      metadata: {genre: 'drama'}
+    },
+  ]
+}
+
+index.vectors.upsert(body)
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
