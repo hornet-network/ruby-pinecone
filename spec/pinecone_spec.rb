@@ -7,25 +7,25 @@ RSpec.describe Pinecone do
 
   describe "#configure" do
     let(:api_key) { "asdasdasd" }
-    let(:base_uri) { "https://myproject.pinecone.io" }
+    let(:environment) { "us-east1-gcp" }
 
     before do
       Pinecone.configure do |config|
         config.api_key = api_key
-        config.base_uri = base_uri
+        config.environment = environment
       end
     end
 
     it "returns the config" do
       expect(Pinecone.configuration.api_key).to eq(api_key)
-      expect(Pinecone.configuration.base_uri).to eq(base_uri)
+      expect(Pinecone.configuration.environment).to eq(environment)
     end
 
     context "without an API Key" do
       let(:api_key) { nil }
 
       it "raises an error" do
-        expect { Pinecone::Client.new.query([1,0]) }.to raise_error(Pinecone::ConfigurationError)
+        expect { Pinecone::Client.new.indexes.list }.to raise_error(Pinecone::ConfigurationError)
       end
     end
   end

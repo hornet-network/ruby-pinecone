@@ -35,7 +35,7 @@ module Pinecone
         name: name,
         dimension: 128
       }
-      body = defaults.merge(params)
+      body = defaults.merge(params.deep_symbolize_keys)
       Pinecone::Client.json_post(prefix: 'controller', path: "/databases", parameters: body)
       self.new(name: name)
     end

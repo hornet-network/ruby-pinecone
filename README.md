@@ -64,6 +64,23 @@ index.describe_index_stats
 #=> {"namespaces"=>{}, "dimension"=>1536, "indexFullness"=>0, "totalVectorCount"=>0}
 ```
 
+#### Create Index
+```ruby
+index = client.indexes.create(name: 'my-new-index', params: {dimension: 1536})
+```
+
+#### Delete Index
+```ruby
+index = client.indexes['my-index']
+index.delete
+```
+
+### Update an Index
+```ruby
+index = client.indexes['my-index']
+index.configure(params: {pod_type: 's1.x2'})
+```
+
 #### Manage Vectors
 
 ##### Upsert

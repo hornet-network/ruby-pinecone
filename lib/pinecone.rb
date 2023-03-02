@@ -14,7 +14,7 @@ module Pinecone
 
     def initialize
       @api_key = nil
-      @base_uri = nil
+      @environment = nil
     end
 
     def api_key
@@ -37,7 +37,7 @@ module Pinecone
   end
 
   def self.configuration
-    @configuration ||= Pinecone::Configuration.new
+    Thread.current[:configuration] ||= Pinecone::Configuration.new
   end
 
   def self.configure

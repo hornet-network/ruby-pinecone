@@ -52,7 +52,7 @@ module Pinecone
     end
 
     def self.project_name
-      @project_name ||= Pinecone::Client.get(prefix: 'controller', path: '/actions/whoami')['project_name']
+      Thread.current[:project_name] ||= Pinecone::Client.get(prefix: 'controller', path: '/actions/whoami')['project_name']
     end
 
     private_class_method def self.uri(path:, prefix: '')
