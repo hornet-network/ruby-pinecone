@@ -58,7 +58,7 @@ module Pinecone
     # # Show database info
     # https://docs.pinecone.io/docs/manage-indexes#getting-information-on-your-indexes
     def describe
-      @describe ||= Pinecone::Client.get(prefix: 'controller', path: "/databases/#{name}")
+      Pinecone::Client.get(prefix: 'controller', path: "/databases/#{name}")
     end
 
     # # Get Show
