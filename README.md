@@ -26,7 +26,7 @@ Or install it yourself as:
 For a quick test you can pass your token directly to a new client:
 
 ```ruby
-client = Pinecone::Client.new(api_key: "access_token_goes_here", base_uri: "https://index_name-project_id.svc.environment.pinecone.io")
+client = Pinecone::Client.new(api_key: "access_token_goes_here", environment: "us-east1-gcp")
 ```
 
 ### With Config
@@ -34,10 +34,8 @@ client = Pinecone::Client.new(api_key: "access_token_goes_here", base_uri: "http
 For a more robust setup, you can configure the gem with your API keys, for example in a pinecone.rb initializer. Never hardcode secrets into your codebase - instead use something like dotenv to pass the keys safely into your environments.
 
 ```ruby
-Pinecone.configure do |config|
-    config.api_key = ENV.fetch('PINECONE_API_KEY')
-    config.base_uri = ENV.fetch('PINECONE_BASE_URI')
-end
+Pinecone.configuration.api_key = ENV.fetch('PINECONE_API_KEY')
+Pinecone.configuration.environment = ENV.fetch('PINECONE_ENVIRONMENT')
 ```
 Then you can create a client like this:
 
