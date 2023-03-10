@@ -1,5 +1,7 @@
 module Pinecone
   class Index
+    class QueryError < StandardError; end
+
     attr_accessor :name
     def initialize(name:)
       self.name = name
@@ -51,7 +53,11 @@ module Pinecone
         "vector": vector
       }
       body = defaults.merge(options)
-      Pinecone::Client.json_post(prefix: prefix, path: '/query', parameters: body)
+      result = Pinecone::Client.json_post(prefix: prefix, path: '/query', parameters: body)
+      if !result.success?
+        raise QueryError.new("Query failed with #{result.response.code} - #{result.parsed_response.to_s}")
+      end
+      result.parsed_response
     end
 
     # # Get Show

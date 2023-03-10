@@ -111,6 +111,23 @@ index = client.indexes['my-index']
 index.vectors.delete(ids: ['id-1', 'id-2'])
 ```
 
+#### Query
+```ruby
+client = Pinecone::Client.new
+index = client.indexes['my-index']
+
+options = {
+  "includeValues": false,
+  "includeMetadata": true,
+  "topK": 10,
+}
+index.query([1.0, 1.0], options: options)
+# => {"results"=>[], "matches"=>[{"id"=>"id-1", "score"=>1, "values"=>[], "metadata"=>{"type"=>"Thing"}}, {"id"=>"id-2", "score"=>0.89825207, "values"=>[], "metadata"=>{"type"=>"Thing"}}], "namespace"=>""}
+
+index.query(nil, options: options)
+# => raise QueryError (Query failed with 400 - {"code"=>3, "message"=>"No query provided", "details"=>[]})
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
