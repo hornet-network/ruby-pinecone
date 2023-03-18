@@ -37,7 +37,7 @@ module Pinecone
   end
 
   def self.configuration
-    Thread.current[:configuration] ||= Pinecone::Configuration.new
+    @configuration ||= Pinecone::Configuration.new
   end
 
   def self.configure
