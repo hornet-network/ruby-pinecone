@@ -18,8 +18,8 @@ module Pinecone
     end
 
     # https://docs.pinecone.io/docs/manage-data#delete-vectors-by-id
-    def delete(ids:)
-      Pinecone::Client.delete(prefix: index.prefix, path: "/vectors/delete?ids=#{ids.join(',')}")
+    def delete(ids:, namespace:)
+      Pinecone::Client.delete(prefix: index.prefix, path: "/vectors/delete?ids=#{ids.join(',')}&namespace=#{namespace}")
     end
   end
 end
