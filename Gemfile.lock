@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ruby-pinecone (0.1.1)
+    ruby-pinecone (0.1.3)
       httparty (>= 0.18.1)
 
 GEM
