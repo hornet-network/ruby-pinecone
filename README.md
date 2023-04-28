@@ -1,5 +1,13 @@
 # Ruby Pinecone
 
+## Rather use the more full featured libary
+
+This was built to hit a deadline.  
+Please rather use https://github.com/ScotterC/pinecone
+It's well maintained and full featured.
+
+## Description
+
 Ruby library to make interacting with the Pinecone Vector Database API easier.
 Format and workings inspired by https://github.com/alexrudall/ruby-openai
 
