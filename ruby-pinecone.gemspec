@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Matthew Hirst"]
   spec.email         = ["hirst.mat@gmail.com"]
 
-  spec.summary       = "Ruby library for interacting with the pineone vector database"
-  spec.description   = "Ruby library for interacting with the pineone vector database"
+  spec.summary       = "Please rather use https://rubygems.org/gems/pinecone - Ruby library for interacting with the pineone vector database"
+  spec.description   = "Ruby library for interacting with the pineone vector database. This was built to hit a deadline. Better to consolidate work into a single ruby pinecone libary. So please rather use https://rubygems.org/gems/pinecone "
   spec.homepage      = "https://github.com/hornet-network/ruby-pinecone"
   spec.license       = "MIT"
   spec.required_ruby_version = ">= 2.4.0"
